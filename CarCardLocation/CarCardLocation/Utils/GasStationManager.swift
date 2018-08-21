@@ -37,11 +37,15 @@ class GasStationManager {
         currentCity = Pantry.unpack(currentCityKey)
         if let currentCity = currentCity {
             let realm = try? Realm()
-            gasStations = realm?.objects(GasStationModel.self).filter({$0.cityName == currentCity.name}) ?? []            
+            gasStations = realm?.objects(GasStationModel.self).filter({$0.cityName == currentCity.name}) ?? []
         }
     }
     
     func fetchGasStation(showInView inView: UIView?) {
+        if gasStations.count > 0 {
+            handleNewGasStations(gasStations)
+            return
+        }
         JSHelper.shared.getCurrentGasStations(inView: inView) { [weak self](gasStations) in
             guard let strong = self else { return }
             self?.gasStations = gasStations
@@ -52,12 +56,11 @@ class GasStationManager {
     
     private func handleNewGasStations(_ gasStations: [GasStationModel]) {
         let geocoder = CLGeocoder()
-        let realm = try? Realm()
         DispatchQueue.global().async { [weak self] in
             guard let strong = self else { return }
             let sem = DispatchSemaphore(value: 0)
             for gasStation in gasStations {
-                if let existGasStation = realm?.object(ofType: GasStationModel.self, forPrimaryKey: gasStation.address),
+                if let existGasStation = (try? Realm())?.object(ofType: GasStationModel.self, forPrimaryKey: gasStation.address),
                     existGasStation.latitude > 0 {
                     self?.delegate?.gasStationManager(strong, didAdd: existGasStation)
                     continue
@@ -68,8 +71,9 @@ class GasStationManager {
                         gasStation.latitude = coordinate.latitude
                         gasStation.longitude = coordinate.longitude
                         gasStation.cityName = self?.currentCity?.name ?? ""
+                        let realm = try? Realm()
                         try? realm?.write {
-                            realm?.add(gasStations, update: true)
+                            realm?.add(gasStation, update: true)
                         }
                         self?.delegate?.gasStationManager(strong, didAdd: gasStation)
                     } else {

@@ -16,7 +16,6 @@ class GasStationListViewController: UIViewController, UITableViewDelegate, UITab
     private let tableView = UITableView()
     private var city: CityModel!
     private var gasStations: [GasStationModel] = []
-    private let realm = try? Realm()
     
     init(city: CityModel) {
         super.init(nibName: nil, bundle: nil)
@@ -58,6 +57,7 @@ class GasStationListViewController: UIViewController, UITableViewDelegate, UITab
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let realm = try? Realm()
         guard realm?.object(ofType: GasStationModel.self, forPrimaryKey: gasStations[indexPath.row].address) == nil else { return }
         CLGeocoder().geocodeAddressString("\(city.name ?? "")\(gasStations[indexPath.row].address)", completionHandler: { [weak self](placemarks, error) in
             guard let gasStation = self?.gasStations[indexPath.row] else { return }
@@ -66,8 +66,8 @@ class GasStationListViewController: UIViewController, UITableViewDelegate, UITab
                 gasStation.latitude = coordinate.latitude
                 gasStation.longitude = coordinate.longitude
                 gasStation.cityName = self?.city?.name ?? ""
-                try? self?.realm?.write {
-                    self?.realm?.add(gasStation, update: true)
+                try? realm?.write {
+                    realm?.add(gasStation, update: true)
                 }
                 self?.gasStations.append(gasStation)
                 GasStationManager.shared.delegate?.gasStationManager(GasStationManager.shared, didAdd: gasStation)
@@ -84,6 +84,7 @@ class GasStationListViewController: UIViewController, UITableViewDelegate, UITab
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell")!
+        let realm = try? Realm()
         cell.textLabel?.text = "\(indexPath.row) -- \(realm?.object(ofType: GasStationModel.self, forPrimaryKey: gasStations[indexPath.row].address) != nil ? "✅" : "") -- \(gasStations[indexPath.row].region) -- \(gasStations[indexPath.row].address)"
         return cell
     }
