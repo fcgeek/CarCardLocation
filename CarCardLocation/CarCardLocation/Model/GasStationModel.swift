@@ -31,6 +31,17 @@ class GasStationModel: Object, FCCodable {
         super.init()
     }
     
+    init(gasStation: GasStationModel) {
+        super.init()
+        cityName = gasStation.cityName
+        company = gasStation.company
+        region = gasStation.region
+        name = gasStation.name
+        address = gasStation.address
+        latitude = gasStation.latitude
+        longitude = gasStation.longitude
+    }
+    
     private enum CodingKeys: String, CodingKey {
         case company
         case region

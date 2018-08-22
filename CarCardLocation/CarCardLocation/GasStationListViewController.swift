@@ -70,7 +70,7 @@ class GasStationListViewController: UIViewController, UITableViewDelegate, UITab
                     realm?.add(gasStation, update: true)
                 }
                 self?.gasStations.append(gasStation)
-                GasStationManager.shared.delegate?.gasStationManager(GasStationManager.shared, didAdd: gasStation)
+                GasStationManager.shared.delegate?.gasStationManager(GasStationManager.shared, didAddGasStation: gasStation.latitude, longitude: gasStation.longitude, name: gasStation.name)
                 tableView.reloadData()
             } else {
                 print("\(self?.city?.name ?? "")\(gasStation.address)")

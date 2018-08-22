@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import RealmSwift
 
 class GasStationViewController: UIViewController {
 
@@ -44,8 +45,10 @@ class GasStationViewController: UIViewController {
             make.size.equalTo(60)
         }
         GasStationManager.shared.delegate = self
-        if GasStationManager.shared.gasStations.count > 0 {
-            GasStationManager.shared.fetchGasStation(showInView: nil)
+        if let gasStations = (try? Realm())?.objects(GasStationModel.self),
+            gasStations.count > 0 {
+            GasStationManager.shared.fetchGasStationLocation(nil)
+            return
         }
     }
     
@@ -74,21 +77,20 @@ class GasStationViewController: UIViewController {
 
 //MARK: - GasStationManagerDelegate
 extension GasStationViewController: GasStationManagerDelegate {
-    func gasStationManagerWillChangeGasStations(_ manager: GasStationManager) {
-        mapView.removeAnnotations(mapView.annotations)
-    }
-    
-    func gasStationManager(_ manager: GasStationManager, didAdd gasStation: GasStationModel) {
+    func gasStationManager(_ manager: GasStationManager, didAddGasStation latitude: CLLocationDegrees, longitude: CLLocationDegrees, name: String) {
         let pointAnnotation = MKPointAnnotation()
-        let loc = CLLocationCoordinate2DMake(CLLocationDegrees(gasStation.latitude), CLLocationDegrees(gasStation.longitude))
+        let loc = CLLocationCoordinate2DMake(latitude, longitude)
         pointAnnotation.coordinate = loc
-        pointAnnotation.title = gasStation.name
+        pointAnnotation.title = name
         
         let pointView = MKAnnotationView(annotation: pointAnnotation, reuseIdentifier: "MKPinAnnotationView")
         pointView.image = #imageLiteral(resourceName: "imgLocation")
         mapView.addAnnotation(pointAnnotation)
     }
     
+    func gasStationManagerWillChangeGasStations(_ manager: GasStationManager) {
+        mapView.removeAnnotations(mapView.annotations)
+    }
     
 }
 
