@@ -100,6 +100,11 @@ extension GasStationViewController: MKMapViewDelegate {
         let region = MKCoordinateRegion.init(center: userLocation.coordinate, span: MKCoordinateSpan.init(latitudeDelta: 0.01, longitudeDelta: 0.01))
         mapView.setRegion(region, animated: true)
     }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        let sheetController = MapHelper.shared.getMapSheet(withTitle: view.annotation?.title ?? "", lat: view.annotation?.coordinate.latitude.toCGFloat, lng: view.annotation?.coordinate.longitude.toCGFloat)
+        presentVC(sheetController)
+    }
 }
 
 //MARK: - PXTLocationManagerDelegate

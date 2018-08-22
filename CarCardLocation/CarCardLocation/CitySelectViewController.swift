@@ -51,8 +51,6 @@ class CitySelectViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-//        guard let city = areas[indexPath.section].citys?[indexPath.row] else { return }
-//        navigationController?.pushViewController(GasStationListViewController(city: city), animated: true)
         dismiss(animated: true) { [weak self] in
             guard let city = self?.areas[indexPath.section].citys?[indexPath.row] else { return }
             self?.didSelectCity?(city)

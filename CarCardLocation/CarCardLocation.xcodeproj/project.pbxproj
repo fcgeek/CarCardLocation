@@ -28,7 +28,7 @@
 		EC68FE1D2125135D00E812F3 /* CompatibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC68FE1C2125135D00E812F3 /* CompatibleView.swift */; };
 		EC68FE1F21251C9600E812F3 /* CaseCountable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC68FE1E21251C9600E812F3 /* CaseCountable.swift */; };
 		EC68FE2121251E2D00E812F3 /* GasStationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC68FE2021251E2D00E812F3 /* GasStationManager.swift */; };
-		EC68FE2321256A8E00E812F3 /* GasStationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC68FE2221256A8E00E812F3 /* GasStationListViewController.swift */; };
+		EC68FE29212CFFE200E812F3 /* MapHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC68FE28212CFFE200E812F3 /* MapHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,7 +76,7 @@
 		EC68FE1C2125135D00E812F3 /* CompatibleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompatibleView.swift; sourceTree = "<group>"; };
 		EC68FE1E21251C9600E812F3 /* CaseCountable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaseCountable.swift; sourceTree = "<group>"; };
 		EC68FE2021251E2D00E812F3 /* GasStationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GasStationManager.swift; sourceTree = "<group>"; };
-		EC68FE2221256A8E00E812F3 /* GasStationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GasStationListViewController.swift; sourceTree = "<group>"; };
+		EC68FE28212CFFE200E812F3 /* MapHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,7 +141,6 @@
 				EC68FDCA212414B200E812F3 /* Info.plist */,
 				EC68FDEC212427AF00E812F3 /* CitySelectViewController.swift */,
 				EC68FDEF2124289900E812F3 /* GasStationViewController.swift */,
-				EC68FE2221256A8E00E812F3 /* GasStationListViewController.swift */,
 			);
 			path = CarCardLocation;
 			sourceTree = "<group>";
@@ -167,6 +166,7 @@
 		EC68FDF32124291800E812F3 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				EC68FE28212CFFE200E812F3 /* MapHelper.swift */,
 				EC68FE1921250EF100E812F3 /* PXTLocationManager.swift */,
 				EC68FE0221242A4700E812F3 /* app_inject.js */,
 				EC68FDF42124291800E812F3 /* HudUtils.swift */,
@@ -371,6 +371,7 @@
 				/Users/liujianlin/Documents/workspace/iOS/Carthage/Carthage/Build/iOS/Pantry.framework,
 				/Users/liujianlin/Documents/workspace/iOS/Carthage/Carthage/Build/iOS/Realm.framework,
 				/Users/liujianlin/Documents/workspace/iOS/Carthage/Carthage/Build/iOS/RealmSwift.framework,
+				/Users/liujianlin/Documents/workspace/iOS/Carthage/Carthage/Build/iOS/EZSwiftExtensions.framework,
 			);
 			name = "Carthage Script";
 			outputPaths = (
@@ -390,10 +391,10 @@
 				EC68FDBF212414B000E812F3 /* AppDelegate.swift in Sources */,
 				EC68FE1D2125135D00E812F3 /* CompatibleView.swift in Sources */,
 				EC68FDED212427AF00E812F3 /* CitySelectViewController.swift in Sources */,
+				EC68FE29212CFFE200E812F3 /* MapHelper.swift in Sources */,
 				EC68FE1221242EFB00E812F3 /* AppInfo.swift in Sources */,
 				EC68FE1F21251C9600E812F3 /* CaseCountable.swift in Sources */,
 				EC68FE2121251E2D00E812F3 /* GasStationManager.swift in Sources */,
-				EC68FE2321256A8E00E812F3 /* GasStationListViewController.swift in Sources */,
 				EC68FE1321242EFB00E812F3 /* DefineConstant.swift in Sources */,
 				EC68FDF02124289900E812F3 /* GasStationViewController.swift in Sources */,
 				EC68FDFA2124291800E812F3 /* JSHelper.swift in Sources */,
